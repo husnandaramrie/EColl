@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PinTransaksi;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -86,8 +87,9 @@ class PinTransaksiController extends Controller
     }
 
 
-    public function closeviewPin($id)
+    public function closeviewPin($id, $refno)
     {
+        // @dd($id, $refno);
         try {
             $body = [
                 "norek" => $id,
@@ -98,9 +100,11 @@ class PinTransaksiController extends Controller
             ];
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Saldo/Read", $body);
             $data = $response->json();
+            $pinrefno = array("refno" => $refno);
             if ($data['code'] == 200){
                 return view('admin.pintransaksi.close', [
-                    'pintransaksi' => $data['data']
+                    'pintransaksi' => $data['data'],
+                    'pinrefno' => $pinrefno
                 ]);
             } else {
                 return back()->with('error','Data Tidak Ada');
@@ -167,10 +171,11 @@ class PinTransaksiController extends Controller
     }
 
 ////////////////////////////////////////////////// destroy ////////////////////////////////////////////////////////
-    public function destroyPin($id) {
+    public function destroyPin(Request $request) {
+        $reg = $request->all();
         try {
             $body = [
-                "refno" => (string)$id
+                "refno" => (string)$reg['refno']
             ];
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
@@ -180,7 +185,7 @@ class PinTransaksiController extends Controller
             $data = $response->json();
             // return $data;
             if ($data['code'] == 200) {
-                return back()->with('success', 'Sukses Close PIN');
+                return redirect()->route('admin.pintransaksi')->with('success', 'Sukses Close PIN');
             } else {
                 return back()->with('error', "Gagal Close PIN");
             }

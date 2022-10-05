@@ -98,7 +98,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
         Route::post('/pintransaksi/updateViewPin/store', [PinTransaksiController::class, 'updateViewPin'])->name('pintransaksi.updateViewPin.store');
         Route::get('/pintransaksi/editPin/view/{id}', [PinTransaksiController::class, 'editPin'])->name('pintransaksi.editPin.view');
         Route::post('/pintransaksi/editPin/store', [PinTransaksiController::class, 'editPin'])->name('pintransaksi.editPin.store');
-        Route::get('/pintransaksi/destroyPin/{id}', [PinTransaksiController::class, 'closeviewPin'])->name('pintransaksi.destroyPin');
+        Route::get('/pintransaksi/closePin/{id}/{refno}', [PinTransaksiController::class, 'closeviewPin'])->name('pintransaksi.closePin');
+        Route::post('/pintransaksi/destroyPin', [PinTransaksiController::class, 'destroyPin'])->name('pintransaksi.destroyPin');
 
         ///////////////////////////////////////////////////// TRANSAKSI //////////////////////////////////////////////////////////
         // DATA TRANSAKSI

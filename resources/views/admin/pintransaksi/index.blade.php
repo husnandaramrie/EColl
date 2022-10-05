@@ -59,7 +59,7 @@
 					  </td>
 					  <td>
 						@if($userid['status'] == "Open PIN")
-						  <a href="{{ route('admin.pintransaksi.destroyPin', $userid['refno']) }}" class="btn btn-warning">Close Pin</a>					
+						  <a href="{{ route('admin.pintransaksi.closePin', [$userid['userid'], $userid['refno']]) }}" class="btn btn-warning">Close Pin</a>					
 						@else
 						<p class="font-weight-bold">Closed Pin</p>
 						@endif  
