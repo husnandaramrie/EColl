@@ -116,6 +116,11 @@ class PinTransaksiController extends Controller
         return redirect()->route('admin.pintransaksi.index')->with('success','Data berhasil diupdate');
     }
 
+    public function closedview()
+    {
+        return view('admin.pintransaksi.close');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -124,9 +129,9 @@ class PinTransaksiController extends Controller
      */
     public function destroy(PinTransaksi $pintransaksi)
     {
-        $this->authorize('delete',$pintransaksi);
+        // $this->authorize('delete',$pintransaksi);
         
-        $pintransaksi->delete();
-        return redirect()->route('admin.pintransaksi.index')->with('success','Data berhasil dihapus');
+        // $pintransaksi->delete();
+        // return redirect()->route('admin.pintransaksi.index')->with('success','Data berhasil dihapus');
     }
 }

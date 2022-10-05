@@ -85,6 +85,31 @@ class PinTransaksiController extends Controller
        }
     }
 
+
+    public function closeviewPin($id)
+    {
+        try {
+            $body = [
+                "norek" => $id,
+                "ttype" => 'EC'
+            ];
+            $headers = [
+                "Authorization" => "Bearer ".Session::get('token')
+            ];
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Saldo/Read", $body);
+            $data = $response->json();
+            if ($data['code'] == 200){
+                return view('admin.pintransaksi.close', [
+                    'pintransaksi' => $data['data']
+                ]);
+            } else {
+                return back()->with('error','Data Tidak Ada');
+            }
+        } catch (\Exception $th){
+            throw $th;
+        }
+    }
+
 ////////////////////////////////////////////////// updateView //////////////////////////////////////////////////
     public function updateViewPin($id) {
         try {

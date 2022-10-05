@@ -1,6 +1,6 @@
 @extends('layouts.backend.app',[
-    'title' => 'PIN Transaksi',
-    'contentTitle' => 'PIN Transaksi'
+    'title' => 'Closing PIN Transaksi',
+    'contentTitle' => 'Closing PIN Transaksi'
 ])
 
 @push('css')
@@ -26,14 +26,14 @@
 				<form method="POST" action="{{route('admin.pintransaksi.storePin')}}">
 					@csrf
 
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label for="name">User</label>
 						<select name="userid" id="" class="form-control">
                             @foreach ($userid as $item)
                                 <option value="{{$item['userid']}}">{{$item['userid']}}</option>
                             @endforeach
                         </select>
-					</div>
+					</div> --}}
 
                     {{-- <div class="form-group">
                         <label for="name">User</label>
@@ -55,9 +55,11 @@
                         <input type="number" name="pin" class="form-control">
                     </div> --}}
 
+                    @foreach ($pintransaksi as $data)
+
                     <div class="form-group">
                         <label for="name">Limit Transaksi</label>
-                        <input type="text" name="pinuser" class="form-control">
+                        <input type="text" name="pinuser" value="{{$data['norek']}}"  class="form-control">
                     </div>
 
                     {{-- <div class="form-group">
@@ -67,8 +69,10 @@
 
                     <div class="form-group">
                         <label for="name">Saldo Awal / Buka Kas</label>
-                        <input type="number" name="saldoakhir" class="form-control">
+                        <input type="text" name="saldoakhir" value="{{$data['saldo']}}"  class="form-control">
                     </div>
+
+                    @endforeach
 
                     {{-- <div class="form-group">
                         <label for="name">Saldo Akhir / Buka Kas</label>
