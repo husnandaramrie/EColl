@@ -2,21 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
-use App\Models\Agenda;
-use App\Models\Artikel;
-use App\Models\Pengumuman;
+// use App\Models\Agenda;
+// use App\Models\Artikel;
+// use App\Models\Pengumuman;
+// use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
     public function index()
     {
-    	return view('home.index',[
+        $data = [
+            "userId" => "%"
+        ];
+        $headers = [
+            "Authorization" => "Bearer ".Session::get('token')
+        ];
+
+        
+        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+      
+        $data = $response->json();
+    
+        if ($data['code'] == 401)
+        {
+            return redirect(route('login'));
+        } else {
+            return view('home.index');
+        }
+    	// return view('home.index',[
             // 'agenda' => Agenda::latest()->take(2)->get(),
             // 'artikel' => Artikel::with(['user','kategoriArtikel'])->latest()->take(2)->get(),
             // 'pengumuman' => Pengumuman::with(['user'])->latest()->take(2)->get(),
-        ]);
+        // ]);
     }
 
     public function about()

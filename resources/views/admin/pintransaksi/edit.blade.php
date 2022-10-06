@@ -47,7 +47,7 @@ $(document).ready(function(){
 
                     <div class="form-group">
                         <label for="">Limit Transaksi</label>
-                        <input type="text" name="userlimit" value="{{$data['userlimit']}}" class="form-control">
+                        <input type="text" name="userlimit" value="{{number_format($data['userlimit'],0)}}" class="form-control">
                     </div>
 
 					

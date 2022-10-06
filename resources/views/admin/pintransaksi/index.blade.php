@@ -36,6 +36,7 @@
 				  <th>Limit</th>
 				  <th>Waktu Max</th>
                   <th>Saldo Awal</th>
+				  <th>Saldo Akhir</th>
                   <th>Kode Open</th>
                   <th>Aksi</th>
 				  <th>Status</th>
@@ -51,6 +52,7 @@
 					  <td>{{ $userid['userlimit'] }}</td>
 					  <td>{{ \Carbon\Carbon::parse($userid['maxtime'])->format('d/m/Y H:i') }}</td>
 					  <td>{{ $userid['saldoawal'] }}</td>
+					  <td>{{ number_format($userid['saldoakhir'],0) }}</td>
 					  <td>{{ $userid['refno'] }}</td>
 					  <td>
 						@if($userid['status'] == "Open PIN")

@@ -23,10 +23,13 @@ class UserControllerNew extends Controller
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
           
             $data = $response->json();
-            // @dd($data);
-                    // return response()->json($data);
+
+            if($data['code'] == 401){
+                return redirect(route('login'));                   
+            } else {
+                return view('admin.users.index', ['users' => $data]); 
+            }
             
-            return view('admin.users.index', ['users' => $data]);
         } catch (\Throwable $th) {
             return $th;
         }

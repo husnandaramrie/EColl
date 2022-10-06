@@ -58,7 +58,7 @@
 					<td>{{ $data['refno'] }}</td>
 					<td>{{ $data['norek'] }}</td>
 					<td>{{ $data['name'] }}</td>
-					<td>{{ $data['amount'] }}</td>
+					<td>{{ number_format($data['amount'],0) }}</td>
 					<td>{{ $data['status'] }}</td>
 					<td>
 						<a href="{{route('admin.data_transaksi.destroyDataTrans', $data['refno'])}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>

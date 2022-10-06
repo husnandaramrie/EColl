@@ -58,7 +58,7 @@
 
                     <div class="form-group">
                         <label for="">Limit Nominal Penarikan</label>
-                        <input type="number" name="limittarik" value="{{$data['limittarik']}}" placeholderid="" class="form-control">
+                        <input type="number" name="limittarik" value="{{number_format($data['limittarik'],0)}}" placeholderid="" class="form-control">
                     </div>
 
                     <div class="form-group">

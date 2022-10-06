@@ -23,10 +23,13 @@ class QRNasabahKreController extends Controller
 
             $data = $response->json();
             // @dd($data);
+            if ($data['code'] == 401) {
+                return redirect(route('login'));
+            } else {
 
             $status = array("code" => "new");
 
-            return view('admin.qr-nasabah.kredit.index', ['barcodes' => $data, 'status' => $status]);
+            return view('admin.qr-nasabah.kredit.index', ['barcodes' => $data, 'status' => $status]);}
         } catch (\Throwable $th) {
             return $th;
         }

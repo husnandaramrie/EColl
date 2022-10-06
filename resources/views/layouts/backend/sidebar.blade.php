@@ -40,23 +40,19 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+          {{-- <a class="nav-link" data-toggle="dropdown" href="#"> --}}
+          <a class="nav-link" href="#" data-toggle="dropdown" aria-expanded="false">
             <i class="nav-icon fa fa-credit-card"></i> Transaksi
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
-           
-            <a href="{{ route('admin.data_transaksi')}}" class="nav-link {{ Request::segment(2) == 'users' ? '' : '' }}" class="dropdown-item">
-              <i class="nav-icon fa fa-credit-card"></i> Data Transaksi
-            </a>
+          {{-- <div class="dropdown-menu dropdown-menu-right"> --}}
+            {{-- <a href="{{ route('admin.data_transaksi')}}" class="nav-link {{ Request::segment(2) == 'users' ? '' : '' }}" class="dropdown-item"> --}}
+            <div class="dropdown-menu dropdown-menu-right bg-secondary text-dark">
+            <a class="dropdown-item" href="{{ route('admin.data_transaksi')}}"><i class="nav-icon fa fa-credit-card"></i>Data Transaksi</a>
             <div class="dropdown-divider"></div>
-            <a href="{{ route('admin.rekap')}}" class="nav-link {{ Request::segment(2) == 'users' ? '' : '' }}" class="dropdown-item">
-              <i class="nav-icon fa fa-credit-card"></i> Rekap Transaksi
-            </a>
+            <a class="dropdown-item" href="{{ route('admin.rekap')}}"><i class="nav-icon fa fa-credit-card"></i>Rekap Transaksi</a>
             <div class="dropdown-divider"></div>
-            <a href="{{ route('admin.validasi')}}" class="nav-link {{ Request::segment(2) == 'users' ? '' : '' }}" class="dropdown-item">
-              <i class="nav-icon fa fa-credit-card"></i> Cek Validasi
-            </a>
-          </div>
+            <a class="dropdown-item" href="{{ route('admin.validasi')}}"><i class="nav-icon fa fa-credit-card"></i>Cek Validasi</a>
+            </div>
         </li>
         <li class="nav-item">
           <a href="{{ route('admin.setting') }}" class="nav-link {{ Request::segment(2) == 'artikel' ? '' : '' }}">
@@ -78,13 +74,13 @@
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="nav-icon fa fa-qrcode"></i> QR Nasabah
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-menu dropdown-menu-right bg-secondary text-dark">
           
-            <a href="{{ route('admin.tabungan')}}" class="nav-link {{ Request::segment(2) == 'users' ? '' : '' }}" class="dropdown-item">
+            <a href="{{ route('admin.tabungan')}}" class="dropdown-item">
               <i class="nav-icon fa fa-qrcode"></i> Tabungan
             </a>
             <div class="dropdown-divider"></div>
-            <a href="{{ route('admin.kredit')}}" class="nav-link {{ Request::segment(2) == 'users' ? '' : '' }}" class="dropdown-item">
+            <a href="{{ route('admin.kredit')}}" class="dropdown-item">
               <i class="nav-icon fa fa-qrcode"></i> Kredit
             </a>
           </div>

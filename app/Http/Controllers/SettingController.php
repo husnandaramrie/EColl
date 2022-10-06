@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
 {
-////////////////////////////////////////////////// INDEX //////////////////////////////////////////////////
+    ////////////////////////////////////////////////// INDEX //////////////////////////////////////////////////
     public function indexSetting()
     {
         try {
@@ -17,73 +17,80 @@ class SettingController extends Controller
                 "id" => "0"
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Setting/Read", $data);
             $data = $response->json();
-            if ($data['code'] == 200) {
-                return view('admin.setting.index', ['setting' => $data]);
+            if ($data['code'] == 401) {
+                return redirect(route('login'));
             } else {
-                return view('admin.setting.index', ['setting' => $data]);
+                if ($data['code'] == 200) {
+                    return view('admin.setting.index', ['setting' => $data]);
+                } else {
+                    return view('admin.setting.index', ['setting' => $data]);
+                }
             }
         } catch (\Throwable $th) {
             return $th;
         }
     }
-    
-////////////////////////////////////////////////// addView //////////////////////////////////////////////////
-    public function addView() {
+
+    ////////////////////////////////////////////////// addView //////////////////////////////////////////////////
+    public function addView()
+    {
         return view('admin.setting.index', [
-        'id' => $this->getSetting("%"),
+            'id' => $this->getSetting("%"),
         ]);
     }
 
-    private function getSetting($id) {
+    private function getSetting($id)
+    {
         $data = [
             'id' => (string)$id
         ];
         $response = Http::withHeaders([
-            'Authorization' => "Bearer ".Session::get('token')
+            'Authorization' => "Bearer " . Session::get('token')
         ])->post('http://117.53.45.236:8002/api/Setting/Read', $data);
         return $response->json()['data'];
     }
-////////////////////////////////////////////////// Add View Setting //////////////////////////////////////////////////
+    ////////////////////////////////////////////////// Add View Setting //////////////////////////////////////////////////
 
-    public function addViewSetting(Request $request) {
+    public function addViewSetting(Request $request)
+    {
         // define
         // @dd($request);
         $req = $request->all();
         $body = [
-                "id" => $req['id'],
-                "Promo" => $req['promo'],
-                "Callcenter" => $req['callcenter'],
-                "Limitsetor" => $req['limitsetor'],
-                "Limittarik" => $req['limittarik'],
-                "SMScenter" => $req['smscenter'],
-                // "Pintarik" => $req['pintarik'],
-                "Pintarik" => $req['pintarik'] == 0 ? false : true,
-                "TType" => "U"
-        ];
-// @dd($body);
-    try {
-        $headers = [
-            "Authorization" => "Bearer ".Session::get('token')
+            "id" => $req['id'],
+            "Promo" => $req['promo'],
+            "Callcenter" => $req['callcenter'],
+            "Limitsetor" => $req['limitsetor'],
+            "Limittarik" => $req['limittarik'],
+            "SMScenter" => $req['smscenter'],
+            // "Pintarik" => $req['pintarik'],
+            "Pintarik" => $req['pintarik'] == 0 ? false : true,
+            "TType" => "U"
         ];
         // @dd($body);
-        // request
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Setting/Set", $body);
+        try {
+            $headers = [
+                "Authorization" => "Bearer " . Session::get('token')
+            ];
+            // @dd($body);
+            // request
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Setting/Set", $body);
 
-        // response
-        $data = $response->json();
-     
-        // $column = $request->input('column', 'name');
-        if ($data['code'] == 200) {
-            return redirect()->route('admin.setting')->with("success", $data['status']);
-        } else {
-            return back()->with('error', $data['message']);
+            // response
+            $data = $response->json();
+
+            // $column = $request->input('column', 'name');
+            if ($data['code'] == 200) {
+                return redirect()->route('admin.setting')->with("success", $data['status']);
+            } else {
+                return back()->with('error', $data['message']);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
-    } catch (\Throwable $th) {
-        throw $th;
-    }
     }
 }

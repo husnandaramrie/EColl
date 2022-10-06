@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class PinTransaksiController extends Controller
 {
-////////////////////////////////////////////////// INDEX //////////////////////////////////////////////////
+    ////////////////////////////////////////////////// INDEX //////////////////////////////////////////////////
     public function indexPin()
     {
         try {
@@ -18,72 +18,79 @@ class PinTransaksiController extends Controller
                 "refdate" => now()
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/ReadAll", $data);
             $data = $response->json();
             // @dd($data);
-                    // return response()->json($data);
-
-            return view('admin.pintransaksi.index', ['pintransaksi' => $data]);
+            // return response()->json($data);
+            if ($data['code'] == 401) {
+                return redirect(route('login'));
+            } else {
+                return view('admin.pintransaksi.index', ['pintransaksi' => $data]);
+            }
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
-////////////////////////////////////////////////// addView //////////////////////////////////////////////////
-    public function addView() {
+    ////////////////////////////////////////////////// addView //////////////////////////////////////////////////
+    public function addView()
+    {
         return view('admin.pintransaksi.create', [
-        'userid' => $this->getUser("%"),
+            'userid' => $this->getUser("%"),
         ]);
     }
 
-    private function getUser($id) {
+    private function getUser($id)
+    {
         $data = [
             'userid' => (string)$id
         ];
         $response = Http::withHeaders([
-            'Authorization' => "Bearer ".Session::get('token')
+            'Authorization' => "Bearer " . Session::get('token')
         ])->post('http://117.53.45.236:8002/api/User/Read', $data);
         return $response->json()['data'];
     }
 
-////////////////////////////////////////////////// addViewPin //////////////////////////////////////////////////
-    public function addViewPin() {
+    ////////////////////////////////////////////////// addViewPin //////////////////////////////////////////////////
+    public function addViewPin()
+    {
         return view('admin.pintransaksi.create', [
-        'userid' => $this->indexPin("%"),
+            'userid' => $this->indexPin("%"),
         ]);
     }
 
-    public function storePin(Request $request) {
+    public function storePin(Request $request)
+    {
         // define
         $req = $request->all();
         $body = [
-                "userid" => $req['userid'],
-                "userlimit" => $req['userlimit'],
-                "maxtime" => $req['maxtime'],
-                "saldoawal" => $req['saldoawal'],
-                "saldoakhir" => 0
+            "userid" => $req['userid'],
+            "userlimit" => $req['userlimit'],
+            "maxtime" => $req['maxtime'],
+            "saldoawal" => $req['saldoawal'],
+            "saldoakhir" => 0
         ];
 
-       try {
-        $headers = [
-            "Authorization" => "Bearer ".Session::get('token')
-        ];
+        try {
+            $headers = [
+                "Authorization" => "Bearer " . Session::get('token')
+            ];
 
-        // request
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/Add", $body);
+            // request
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/Add", $body);
 
-        // response
-        $data = $response->json();
-        if ($data['code'] == 200) {
-            return redirect()->route('admin.pintransaksi')->with("success", $data['message']);
-        } else {
-            return back()->with('error', $data['message']);
+            // response
+            $data = $response->json();
+            if ($data['code'] == 200) {
+                return redirect()->route('admin.pintransaksi')->with("success", $data['message']);
+            } else {
+                return back()->with('error', $data['message']);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
-       } catch (\Throwable $th) {
-        throw $th;
-       }
     }
 
 
@@ -96,32 +103,33 @@ class PinTransaksiController extends Controller
                 "ttype" => 'EC'
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Saldo/Read", $body);
             $data = $response->json();
             $pinrefno = array("refno" => $refno);
-            if ($data['code'] == 200){
+            if ($data['code'] == 200) {
                 return view('admin.pintransaksi.close', [
                     'pintransaksi' => $data['data'],
                     'pinrefno' => $pinrefno
                 ]);
             } else {
-                return back()->with('error','Data Tidak Ada');
+                return back()->with('error', 'Belum Ada Transaksi');
             }
-        } catch (\Exception $th){
+        } catch (\Exception $th) {
             throw $th;
         }
     }
 
-////////////////////////////////////////////////// updateView //////////////////////////////////////////////////
-    public function updateViewPin($id) {
+    ////////////////////////////////////////////////// updateView //////////////////////////////////////////////////
+    public function updateViewPin($id)
+    {
         try {
             $body = [
                 "userid" => $id
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             // request
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/Read", $body);
@@ -132,28 +140,28 @@ class PinTransaksiController extends Controller
                 return view('admin.pintransaksi.edit', [
                     'pintransaksi' => $data['data']
                 ]);
-              
             } else {
                 return back()->with('error', "Data Gagal Ditambah");
             }
         } catch (\Exception $th) {
             throw $th;
         }
-    } 
+    }
 
-////////////////////////////////////////////////// edit //////////////////////////////////////////////////
-    public function editPin(Request $request) {
+    ////////////////////////////////////////////////// edit //////////////////////////////////////////////////
+    public function editPin(Request $request)
+    {
         $req = $request->all();
         $body = [
-                "refdate" => $req['maxtime'],
-                "refno" => $req['refno'],
-                "userlimit" => $req['userlimit'],
-                "maxtime" => $req['maxtime']
+            "refdate" => $req['maxtime'],
+            "refno" => $req['refno'],
+            "userlimit" => $req['userlimit'],
+            "maxtime" => $req['maxtime']
         ];
 
         try {
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             // request
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/Update", $body);
@@ -170,15 +178,16 @@ class PinTransaksiController extends Controller
         }
     }
 
-////////////////////////////////////////////////// destroy ////////////////////////////////////////////////////////
-    public function destroyPin(Request $request) {
+    ////////////////////////////////////////////////// destroy ////////////////////////////////////////////////////////
+    public function destroyPin(Request $request)
+    {
         $reg = $request->all();
         try {
             $body = [
                 "refno" => (string)$reg['refno']
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             // request
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/Close", $body);
@@ -193,5 +202,5 @@ class PinTransaksiController extends Controller
             throw $th;
         }
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

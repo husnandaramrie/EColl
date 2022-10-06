@@ -49,14 +49,14 @@
 					@foreach($validasi['data'] as $data)
 					<tr>
 					<td>{{ $loop->index + 1 }}</td>
-					<td>{{ $data['refdate'] }}</td>
+					<td>{{ \Carbon\Carbon::parse($data['refdate'])->format('d/m/Y H:i') }}</td>
 					<td>{{ $data['userid'] }}</td>
 					<td>{{ $data['jenis'] }}</td>
 					<td>{{ $data['tipe'] }}</td>
 					<td>{{ $data['refno'] }}</td>
 					<td>{{ $data['norek'] }}</td>
 					<td>{{ $data['name'] }}</td>
-					<td>{{ $data['amount'] }}</td>
+					<td>{{ number_format($data['amount'],0) }}</td>
 					<td>{{ $data['status'] }}</td>
 					</td>
 					@endforeach

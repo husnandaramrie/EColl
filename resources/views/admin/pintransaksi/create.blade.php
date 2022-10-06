@@ -57,17 +57,17 @@
 
                     <div class="form-group">
                         <label for="name">Limit Transaksi</label>
-                        <input type="text" name="pinuser" class="form-control">
+                        <input type="text" name="userlimit" class="form-control">
                     </div>
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="name">Maximal Waktu Transaksi</label>
                         <input type="datetime-local" name="maxtime" class="form-control" date(format,timestamp)>
-                    </div> --}}
+                    </div>
 
                     <div class="form-group">
                         <label for="name">Saldo Awal / Buka Kas</label>
-                        <input type="number" name="saldoakhir" class="form-control">
+                        <input type="number" name="saldoawal" class="form-control">
                     </div>
 
                     {{-- <div class="form-group">

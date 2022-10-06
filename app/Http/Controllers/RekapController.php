@@ -17,12 +17,28 @@ class RekapController extends Controller
     {
         // $rekap = ['code'=>'400'];
         //@dd($this->getCabang("%"));
-        $rekap = array ( "code" => "404");
-        return view('admin.transaksi.rekap_transaksi.index', [
-            'branches' => $this->getCabang("%"),
-            'clients' => $this->getClient("%"),
-            'rekap' => $rekap
-        ]);
+        $data = [
+            "userId" => "%"
+        ];
+        $headers = [
+            "Authorization" => "Bearer " . Session::get('token')
+        ];
+
+
+        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+
+        $data = $response->json();
+
+        if ($data['code'] == 401) {
+            return redirect(route('login'));
+        } else {
+            $rekap = array("code" => "404");
+            return view('admin.transaksi.rekap_transaksi.index', [
+                'branches' => $this->getCabang("%"),
+                'clients' => $this->getClient("%"),
+                'rekap' => $rekap
+            ]);
+        }
     }
     ////////////////////////////////////////////////// FILTER //////////////////////////////////////////////////
     public function readRekap(Request $request)
@@ -37,10 +53,10 @@ class RekapController extends Controller
 
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
 
-        //@dd($data);
+            //@dd($data);
 
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/Rekap", $body);
             $data = $response->json();
@@ -56,25 +72,26 @@ class RekapController extends Controller
     }
 
     ////////////////////////////////////////////////// getCabang ////////////////////////////////////////////////////////
-    private function getCabang($id) {
+    private function getCabang($id)
+    {
         $data = [
             'divisiid' => (string)$id
         ];
         $response = Http::withHeaders([
-            'Authorization' => "Bearer ".Session::get('token')
+            'Authorization' => "Bearer " . Session::get('token')
         ])->post('http://117.53.45.236:8002/api/User/Divisi', $data);
         return $response->json()['data'];
     }
 
     ////////////////////////////////////////////////// getClient ////////////////////////////////////////////////////////
-    private function getClient($id) {
+    private function getClient($id)
+    {
         $data = [
             'clientid' => (string)$id
         ];
         $response = Http::withHeaders([
-            'Authorization' => "Bearer ".Session::get('token')
+            'Authorization' => "Bearer " . Session::get('token')
         ])->post('http://117.53.45.236:8002/api/User/Client', $data);
         return $response->json()['data'];
     }
-
 }

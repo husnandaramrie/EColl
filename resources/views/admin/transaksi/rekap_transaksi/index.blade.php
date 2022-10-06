@@ -34,7 +34,7 @@
 			{{-- @if($rekap['code']=='200')
         @foreach($rekap['data'] as $data) --}}
 
-					<div class="form-group">
+{{-- 					<div class="form-group">
                         <label for="">BPR</label>
                         <select name="" id="" class="form-control">
                             @foreach ($clients as $item)
@@ -50,7 +50,7 @@
 								<option value="{{$item['clientid']}}">{{$item['clientname']}}</option>
 							@endforeach                        
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <label for="">Tanggal Awal</label>
@@ -92,8 +92,8 @@
 				  <th>No</th>
 				  <th>Petugas</th>
 				  <th colspan="2">Setoran</th>
-				  <th colspan="2">Penarikan</th>
-                  <th colspan="2">Angsuran</th>
+				  {{-- <th colspan="2">Penarikan</th>
+                  <th colspan="2">Angsuran</th> --}}
 				</tr>
 				</thead>
 				<tbody>
@@ -103,11 +103,11 @@
 						<td>{{ $loop->index + 1 }}</td>
 						<td>{{ $data['name'] }}</td>
 						<td>{{ $data['nosetor'] }}</td>
-						<td>{{ $data['asetor'] }}</td>
-						<td>{{ $data['notarik'] }}</td>
+						<td>{{ number_format($data['asetor'],0) }}</td>
+						{{-- <td>{{ $data['notarik'] }}</td>
 						<td>{{ $data['atarik'] }}</td>
 						<td>{{ $data['noangsuran'] }}</td>
-						<td>{{ $data['aangsuran'] }}</td>
+						<td>{{ $data['aangsuran'] }}</td> --}}
 					</tr>
 					@endforeach
 					{{-- @endif --}}

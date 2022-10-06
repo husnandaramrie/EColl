@@ -35,7 +35,7 @@
 
                     <div class="form-group">
                         <label for="name">Saldo Akhir</label>
-                        <input type="text" name="saldoakhir" value="{{$data['saldo']}}"  class="form-control" readonly>
+                        <input type="text" name="saldoakhir" value="{{number_format($data['saldo'],0)}}"  class="form-control" readonly>
                     </div>
 
                     <div class="form-group">

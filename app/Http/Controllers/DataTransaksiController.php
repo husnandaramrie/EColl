@@ -13,34 +13,39 @@ class DataTransaksiController extends Controller
     ////////////////////////////////////////////////// INDEX //////////////////////////////////////////////////
     public function indexDataTransaksi()
     {
-    try {
-        $data = [
-            "refdate" => Carbon::now()->format("Y-m-d")
-        ];
-        $headers = [
-            "Authorization" => "Bearer ".Session::get('token')
-        ];
-        // @dd($data);
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadAll", $data);
-        $data = $response->json();
-            if ($data['code'] == 200) {
-                return view('admin.transaksi.data_transaksi.index', ['data_transaksi' => $data]);
+        try {
+            $data = [
+                "refdate" => Carbon::now()->format("Y-m-d")
+            ];
+            $headers = [
+                "Authorization" => "Bearer " . Session::get('token')
+            ];
+            // @dd($data);
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadAll", $data);
+            $data = $response->json();
+            if ($data['code'] == 401) {
+                return redirect(route('login'));
             } else {
-                return view('admin.transaksi.data_transaksi.index', ['data_transaksi' => $data]);
+                if ($data['code'] == 200) {
+                    return view('admin.transaksi.data_transaksi.index', ['data_transaksi' => $data]);
+                } else {
+                    return view('admin.transaksi.data_transaksi.index', ['data_transaksi' => $data]);
+                }
             }
         } catch (\Throwable $th) {
             return $th;
         }
     }
-////////////////////////////////////////////////// destroy ////////////////////////////////////////////////////////
-    public function destroyDataTrans($id) {
+    ////////////////////////////////////////////////// destroy ////////////////////////////////////////////////////////
+    public function destroyDataTrans($id)
+    {
         try {
             // @dd($id);
             $body = [
                 "refno" => (string)$id
             ];
             $headers = [
-                "Authorization" => "Bearer ".Session::get('token')
+                "Authorization" => "Bearer " . Session::get('token')
             ];
             // request
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/Del", $body);

@@ -23,10 +23,13 @@ class QRNasabahTabController extends Controller
 
             $data = $response->json();
             // @dd($data);
+            if ($data['code'] == 401) {
+                return redirect(route('login'));
+            } else {
+                $status = array("code" => "new");
 
-            $status = array("code" => "new");
-
-            return view('admin.qr-nasabah.tabungan.index', ['barcodes' => $data, 'status' => $status]);
+                return view('admin.qr-nasabah.tabungan.index', ['barcodes' => $data, 'status' => $status]);
+            }
         } catch (\Throwable $th) {
             return $th;
         }
@@ -36,18 +39,17 @@ class QRNasabahTabController extends Controller
     {
         $input = $request->all();
         try {
-            if($input['norek'] == ""){
+            if ($input['norek'] == "") {
                 $cari = "%";
                 $status = array("code" => "new");
-            }
-             else {
-                $cari = $input['norek'];               
+            } else {
+                $cari = $input['norek'];
                 $status = array("code" => "old");
             };
 
             $data = [
                 "ttype" => "T",
-                "norek" => $cari 
+                "norek" => $cari
             ];
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
@@ -57,12 +59,12 @@ class QRNasabahTabController extends Controller
 
             $data = $response->json();
             // @dd($data);
-            
-            if($input['tags'] == "views") {
+
+            if ($input['tags'] == "views") {
                 return view('admin.qr-nasabah.tabungan.index', ['barcodes' => $data, 'status' => $status]);
             }
 
-            if($input['tags'] == "prints"){
+            if ($input['tags'] == "prints") {
                 return view('admin.qr-nasabah.tabungan.print', ['barcodes' => $data]);
             }
         } catch (\Throwable $th) {
@@ -92,5 +94,4 @@ class QRNasabahTabController extends Controller
             return $th;
         }
     }
-
 }
