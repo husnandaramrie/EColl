@@ -37,7 +37,7 @@
 				  <th>Expired</th>
 				  <th>Tipe</th>
 				  <th>Message</th>
-				  <th>status</th>
+				  <th>Status</th>
 				  <th>Aksi</th>
 				</tr>
 				</thead>
