@@ -19,11 +19,11 @@ class AdminController extends Controller
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
             ];
-
             
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
           
             $data = $response->json();
+
 
             $news = [
                 "reftype" => "%",
@@ -32,11 +32,11 @@ class AdminController extends Controller
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
             ];
-
             
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/ReadAll", $news);
           
             $news = $response->json();
+
 
             $trans = [
                 "refdate" => now()->toDateString()
@@ -45,17 +45,28 @@ class AdminController extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
 
-
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadAll", $trans);
           
             $trans = $response->json();
+           
+            $pin = [
+                "refdate" => now()->toDateString()
+            ];
+            $headers = [
+                "Authorization" => "Bearer ".Session::get('token')
+            ];
+
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/ReadAll", $pin);
+          
+            $pin = $response->json();
+
 
             if ($data['code'] == 200){
-                return view('admin.index', ['users' => $data, 'news' => $news, 'trans' => $trans]);
+                return view('admin.index', ['users' => $data, 'news' => $news, 'trans' => $trans, 'pins' => $pin]);
             } else {
                 return redirect(route('home'));
             }
-            
+
         } catch (\Throwable $th) {
             return $th;
         }

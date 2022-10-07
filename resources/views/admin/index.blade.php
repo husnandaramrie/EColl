@@ -9,12 +9,11 @@
     <!-- small box -->
     <div class="small-box bg-info">
       <div class="inner">
+        @php $jum = 0 @endphp
         @if($users['code'] == '200')
-        @php $jum = count($users['data']) @endphp
-          <h3>{{ $jum }}</h3>
+          @php $jum = count($users['data']) @endphp
         @endif
-        {{-- <h3>@count('admin')</h3> --}}
-
+        <h3>{{ $jum }}</h3>
         <p>Management User</p>
       </div>
       <div class="icon">
@@ -26,14 +25,13 @@
   <!-- ./col -->
   <div class="col-lg-3 col-6">
     <!-- small box -->
-    <div class="small-box bg-success">
+    <div class="small-box bg-secondary">
       <div class="inner">
+        @php $jumnews = 0 @endphp
         @if($news['code'] == '200')
-        @php $jumnews = count($news['data']) @endphp
-          <h3>{{ $jumnews }}</h3>
+          @php $jumnews = count($news['data']) @endphp
         @endif
-        {{-- <h3>@count('admin.users.index')</h3> --}}
-
+        <h3>{{ $jumnews }}</h3>
         <p>Dashboard</p>
       </div>
       <div class="icon">
@@ -47,12 +45,11 @@
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
+        @php $jumtrans = 0 @endphp
         @if($trans['code'] == '200')
-        @php $jumtrans = count($trans['data']) @endphp
-          <h3>{{ $jumtrans }}</h3>
+          @php $jumtrans = count($trans['data']) @endphp
         @endif
-        {{-- <h3>@count('admin.dashboard.index')</h3> --}}
-
+        <h3>{{ $jumtrans }}</h3>
         <p>Transaksi</p>
       </div>
       <div class="icon">
@@ -67,14 +64,34 @@
     <div class="small-box bg-warning">
       <div class="inner">
         <h3>100</h3>
-        {{-- <h3>@count('admin.transaksi.index')</h3> --}}
-
         <p>Validasi</p>
       </div>
       <div class="icon">
         <i class="fas fa-list"></i>
       </div>
       <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-danger">
+      <div class="inner">
+        @php $i = 0 @endphp
+        @if($pins['code'] == '200')
+        @foreach($pins['data'] as $pin)
+            @if($pin['status'] == "Open PIN")
+                  @php $i++ @endphp
+            @endif
+        @endforeach
+        @endif
+        <h3>{{ $i }}</h3>
+        <p>PIN Open</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-list"></i>
+      </div>
+      <a href="{{ route('admin.pintransaksi') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
 </div>

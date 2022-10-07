@@ -33,6 +33,7 @@
 				<tr>
 				  <th>User ID</th>
 				  <th>PIN</th>
+				  <th>Cabang</th>
 				  <th>Limit</th>
 				  <th>Waktu Max</th>
                   <th>Saldo Awal</th>
@@ -49,6 +50,7 @@
 					<tr>
 					  <td>{{ $userid['userid'] }}</td>
 					  <td>{{ $userid['pin'] }}</td>
+					  <td>{{ $userid['cabang'] }}</td>
 					  <td>{{ $userid['userlimit'] }}</td>
 					  <td>{{ \Carbon\Carbon::parse($userid['maxtime'])->format('d/m/Y H:i') }}</td>
 					  <td>{{ $userid['saldoawal'] }}</td>
