@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Session;
 
 class NewLoginController extends Controller
 {
-    //
     public function login(Request $req) {
         $input = $req->all();
         $data = [
@@ -31,8 +30,15 @@ class NewLoginController extends Controller
             $reslog = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $datalog);
             //$reslog = Http::withHeaders($headers)->post("http://localhost:5400/api/User/Read", $datalog);
             $responselog = $reslog->json();
+            //@dd($responselog);
             if ($responselog['code'] == 200){
                 Session::put('AddUser', $responselog['data'][0]['adduser']);
+                if ($responselog['data'][0]['level'] == "CLT"){
+                    $value = "%";
+                    Session::put('cabang', $value);
+                } else {
+                    Session::put('cabang', $responselog['data'][0]['cabang']);
+                }
             }
             //@dd($responselog);
 

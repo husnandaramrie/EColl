@@ -50,21 +50,23 @@ class AdminController extends Controller
             $trans = $response->json();
            
             $pin = [
-                "refdate" => now()->toDateString()
+                "refdate" => now()->toDateString(),
+                "cabang" => Session::get('cabang')
             ];
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
             ];
 
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/ReadAll", $pin);
+            //@dd($pin['cabang']);
           
             $pin = $response->json();
 
 
             if ($data['code'] == 200){
-                return view('admin.index', ['users' => $data, 'news' => $news, 'trans' => $trans, 'pins' => $pin]);
+               return view('admin.index', ['users' => $data, 'news' => $news, 'trans' => $trans, 'pins' => $pin]);
             } else {
-                return redirect(route('home'));
+               return redirect(route('home'));
             }
 
         } catch (\Throwable $th) {

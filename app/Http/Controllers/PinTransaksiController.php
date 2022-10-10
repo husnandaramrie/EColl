@@ -15,12 +15,15 @@ class PinTransaksiController extends Controller
     {
         try {
             $data = [
-                "refdate" => now()
+                "refdate" => now(),
+                "cabang" => Session::get('cabang')
             ];
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
+            //@dd($data['cabang']);
             $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/ReadAll", $data);
+            //$response = Http::withHeaders($headers)->post("http://localhost:5400/api/Pin/ReadAll", $data);
             $data = $response->json();
             // @dd($data);
             // return response()->json($data);
