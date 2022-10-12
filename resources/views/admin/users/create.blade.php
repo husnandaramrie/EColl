@@ -162,9 +162,9 @@
             }, 
             body: JSON.stringify({divisiid: cbbClient.value})})
         const json = await res.json()
-        console.log(json);
+        // console.log(json);
         if (json.code == 200) {
-           json.data.map((val) => {
+            json.data.map((val) => {
             const newEl = document.createElement("option");
             cbbCabang.appendChild(newEl)
             newEl.setAttribute("value", val.clientid)
