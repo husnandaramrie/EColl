@@ -41,19 +41,17 @@
 
 					<div class="form-group">
 						<label for="name">Client</label>
-						<select name="client" id="" class="form-control">
+						<select name="client" id="client" class="form-control">
                             @foreach ($clients as $item)
-                                <option value="{{$item['clientid']}}">{{$item['clientname']}}</option>
+                                <option data-id= "{{$item['clientid']}}" value="{{$item['clientid']}}">{{$item['clientname']}}</option>
                             @endforeach
-                        </select>
+                        </select> 
 					</div>
 
                     <div class="form-group">
 						<label for="name">Cabang</label>
-						<select name="cabang" id="" class="form-control">
-                            @foreach ($branches as $item)
-                                <option value="{{$item['clientid']}}">{{$item['clientname']}}</option>
-                            @endforeach
+						<select name="cabang" id="cabang" class="form-control">
+                          
                         </select>
 					</div>
 
@@ -149,4 +147,36 @@
 		</div>
 	</div>
 </div>
+<script>
+    var url = "https://cors-anywhere.herokuapp.com/http://117.53.45.236:8002/api/User/Divisi"
+    const cbbCabang = document.getElementById("cabang")
+    const cbbClient = document.getElementById("client")
+
+    client.addEventListener("change", async () => {
+        cbbCabang.innerHTML = ''
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer {{ Session::get('token') }}"
+            }, 
+            body: JSON.stringify({divisiid: cbbClient.value})})
+        const json = await res.json()
+        console.log(json);
+        if (json.code == 200) {
+           json.data.map((val) => {
+            const newEl = document.createElement("option");
+            cbbCabang.appendChild(newEl)
+            newEl.setAttribute("value", val.clientid)
+            newEl.innerHTML = val.clientname
+           })
+        } else {
+            const newEl = document.createElement("option");
+            cbbCabang.appendChild(newEl)
+            newEl.innerHTML = "Tidak Ada Cabang"
+        }
+        
+    })
+</script>
 @stop
+

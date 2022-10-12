@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserControllerNew;
 
 // /**
 //  * route "/register"
@@ -20,6 +21,8 @@ use App\Http\Controllers\LoginController;
  * route "/user"
  * @method "GET"
  */
+// Route::post('/users/cabang', [UserControllerNew::class, 'clientList'])->name('api.users.cabang');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

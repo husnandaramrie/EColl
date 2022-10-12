@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -243,4 +244,16 @@ class UserControllerNew extends Controller
     }
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function clientList(Request $request){
+        $req = $request->all();
+        $data = [
+            'divisiid' => $request->client
+        ];
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".Session::get('token')
+        ])->post('http://117.53.45.236:8002/api/User/Divisi', $data);
+        return $response;
+        // return response()->json($data);
+    }
 }

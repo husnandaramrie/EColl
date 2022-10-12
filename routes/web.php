@@ -88,7 +88,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
         Route::get('/users/update/view/{id}', [UserControllerNew::class, 'updateView'])->name('users.update.view');
         Route::post('/users/update/store', [UserControllerNew::class, 'edit'])->name('users.update.store');
         Route::get('/users/destroy/{id}', [UserControllerNew::class, 'destroy'])->name('users.destroy');
-        Route::get('/users/cabang/{id}', [UserControllerNew::class, 'getCabang'])->name('users.cabang');
+        Route::post('/users/cabang', [UserControllerNew::class, 'clientList'])->name('users.cabang');
 
         // PIN TRANSAKSI
         Route::get('/pintransaksi', [PinTransaksiController::class, 'indexPin'])->name('pintransaksi');
