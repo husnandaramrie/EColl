@@ -15,7 +15,8 @@ class ValidasiController extends Controller
     {
         try {
             $data = [
-                "refdate" => Carbon::now()->format("Y-m-d")
+                "refdate" => Carbon::now()->format("Y-m-d"),
+                "userid" => "%"
             ];
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
