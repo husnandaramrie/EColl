@@ -53,7 +53,7 @@
 					  <td>{{ $userid['cabang'] }}</td>
 					  <td>{{ $userid['userlimit'] }}</td>
 					  <td>{{ \Carbon\Carbon::parse($userid['maxtime'])->format('d/m/Y H:i') }}</td>
-					  <td>{{ $userid['saldoawal'] }}</td>
+					  <td>{{ number_format($userid['saldoawal'],0) }}</td>
 					  <td>{{ number_format($userid['saldoakhir'],0) }}</td>
 					  <td>{{ $userid['refno'] }}</td>
 					  <td>
