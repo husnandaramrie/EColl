@@ -49,6 +49,9 @@
 				<tbody>
 					@if($data_transaksi['code']=='200')
 					@foreach($data_transaksi['data'] as $data)
+					@php
+						$no = $loop->index + 1;	
+					@endphp
 					<tr>
 					<td>{{ $loop->index + 1 }}</td>
 					<td>{{ \Carbon\Carbon::parse($data['refdate'])->format('d/m/Y H:i') }}</td>
@@ -65,9 +68,13 @@
 					</td>
 					</tr>
 					@endforeach
+					<tfoot>
+						<tr>
+							<th colspan="8">Total : </th>
+							<th colspan="3"></th>
+						</tr>
+					</tfoot>
 					@endif
-
-
 				</tbody>
 				</table>
 			</div>
@@ -80,17 +87,38 @@
 <!-- DataTables -->
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/datatables/jquery.dataTables.js"></script>
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/jquery/sum().js"></script>
 <script>
   $(function () {
-    $("#dataTable1").DataTable();
-    $('#dataTable2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-    });
-  });
-</script>
+    var table = $('#dataTable1').DataTable({
+		footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column(8)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+ 
+            // Total over this page
+            pageTotal = api
+                .column(8, { page: 'current' })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+ 
+            // Update footer
+            $(api.column(8).footer()).html('Rp.' + pageTotal + ' ( Rp.' + total + ' total)');
+        },
+	});
+   });
+ </script>
 @endpush

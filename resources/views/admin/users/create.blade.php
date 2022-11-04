@@ -51,7 +51,9 @@
                     <div class="form-group">
 						<label for="name">Cabang</label>
 						<select name="cabang" id="cabang" class="form-control">
-                          
+                            @foreach ($branches as $item)
+                                <option value="{{$item['clientid']}}">{{$item['clientname']}}</option>
+                            @endforeach                          
                         </select>
 					</div>
 
@@ -147,7 +149,7 @@
 		</div>
 	</div>
 </div>
-<script>
+{{-- <script>
     var url = "https://cors-anywhere.herokuapp.com/http://117.53.45.236:8002/api/User/Divisi"
     const cbbCabang = document.getElementById("cabang")
     const cbbClient = document.getElementById("client")
@@ -178,5 +180,5 @@
         
     })
 </script>
-@stop
+ --}}@stop
 

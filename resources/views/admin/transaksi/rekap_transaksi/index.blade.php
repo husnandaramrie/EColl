@@ -91,7 +91,8 @@
 				<tr>
 				  <th>No</th>
 				  <th>Petugas</th>
-				  <th colspan="2">Setoran</th>
+				  <th>Setoran</th>
+				  <th></th>
 				  {{-- <th colspan="2">Penarikan</th>
                   <th colspan="2">Angsuran</th> --}}
 				</tr>
@@ -111,6 +112,12 @@
 					</tr>
 					@endforeach
 					{{-- @endif --}}
+					<tfoot>
+						<tr>
+							<th colspan="3">Total : </th>
+							<th></th>
+						</tr>
+					</tfoot>
 
 				</tbody>
 				</table>
@@ -125,10 +132,44 @@
 <!-- DataTables -->
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/datatables/jquery.dataTables.js"></script>
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/jquery/sum().js"></script>
 <script>
   $(function () {
-    $("#dataTable1").DataTable();
-    $('#dataTable2').DataTable({
+    var table = $('#dataTable1').DataTable({
+		footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column(3)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+ 
+            // Total over this page
+            pageTotal = api
+                .column(3, { page: 'current' })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+ 
+            // Update footer
+            $(api.column(3).footer()).html('Rp.' + pageTotal + ' ( Rp.' + total + ' total)');
+        },
+	});
+   });
+ </script>
+{{-- <script>
+  $(function () {
+    // $("#dataTable1").DataTable();
+    $('#dataTable1').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -138,4 +179,4 @@
     });
   });
 </script>
-@endpush
+ --}}@endpush

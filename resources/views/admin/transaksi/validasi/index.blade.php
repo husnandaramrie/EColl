@@ -60,6 +60,12 @@
 					<td>{{ $data['status'] }}</td>
 					</td>
 					@endforeach
+					<tfoot>
+						<tr>
+							<th colspan="8">Total : </th>
+							<th colspan="2"></th>
+						</tr>
+					</tfoot>
 				@endif
 				</tbody>
 				</table>
@@ -72,7 +78,41 @@
 <!-- DataTables -->
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/datatables/jquery.dataTables.js"></script>
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/jquery/sum().js"></script>
 <script>
+  $(function () {
+    var table = $('#dataTable1').DataTable({
+		footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column(8)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+ 
+            // Total over this page
+            pageTotal = api
+                .column(8, { page: 'current' })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+ 
+            // Update footer
+            $(api.column(8).footer()).html('Rp.' + pageTotal + ' ( Rp.' + total + ' total)');
+        },
+	});
+   });
+ </script>
+{{-- <script>
   $(function () {
     $("#dataTable1").DataTable();
     $('#dataTable2').DataTable({
@@ -85,4 +125,5 @@
     });
   });
 </script>
-@endpush
+ --}}
+ @endpush

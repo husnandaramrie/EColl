@@ -39,7 +39,8 @@ class AdminController extends Controller
 
 
             $trans = [
-                "refdate" => now()->toDateString()
+                "refdate" => now()->toDateString(),
+                "userid" => "%"
             ];
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
