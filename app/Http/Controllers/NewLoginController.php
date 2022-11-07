@@ -36,11 +36,13 @@ class NewLoginController extends Controller
                 if ($responselog['data'][0]['level'] == "CLT"){
                     $value = "%";
                     Session::put('cabang', $value);
+                    Session::put('userid', $value);
                 } else {
                     Session::put('cabang', $responselog['data'][0]['cabang']);
+                    session::put('userid', $responselog['data'][0]['userid']);
                 }
             }
-            //@dd($responselog);
+            // @dd($responselog);
 
             return redirect()->route('admin.index');
         } else {

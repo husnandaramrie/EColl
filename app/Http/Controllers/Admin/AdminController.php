@@ -37,16 +37,18 @@ class AdminController extends Controller
           
             $news = $response->json();
 
-
+            // @dd(Session::get('userid'));
+            // @dd(Session::get('cabang'));
             $trans = [
                 "refdate" => now()->toDateString(),
-                "userid" => "%"
+                "userid" => Session::get('userid'),
+                "cabang" => Session::get('cabang')
             ];
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
             ];
 
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadAll", $trans);
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/v2/ReadAll", $trans);
           
             $trans = $response->json();
            

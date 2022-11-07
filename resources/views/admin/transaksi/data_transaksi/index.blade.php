@@ -98,7 +98,8 @@
             var intVal = function (i) {
                 return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
             };
- 
+
+			
             // Total over all pages
             total = api
                 .column(8)
@@ -116,7 +117,7 @@
                 }, 0);
  
             // Update footer
-            $(api.column(8).footer()).html('Rp.' + pageTotal + ' ( Rp.' + total + ' total)');
+            $(api.column(8).footer()).html('Rp. ' + pageTotal + ' ( Rp. ' + total + ' total)');
         },
 	});
    });
