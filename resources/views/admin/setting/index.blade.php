@@ -41,10 +41,10 @@
                 @if($setting['code']=='200')
                     @foreach($setting['data'] as $data)
                 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="">ID</label>
                         <input type="text" name="id" value="{{$data['id']}}" class="form-control" readonly>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <label for="">Iklan Promo</label>
@@ -58,7 +58,7 @@
 
                     <div class="form-group">
                         <label for="">Limit Nominal Penarikan</label>
-                        <input type="number" name="limittarik" value="{{number_format($data['limittarik'],0)}}" placeholderid="" class="form-control">
+                        <input type="number" name="limittarik" value="{{$data['limittarik']}}" placeholderid="" class="form-control">
                     </div>
 
                     <div class="form-group">
