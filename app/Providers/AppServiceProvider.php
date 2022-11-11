@@ -5,7 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Pagination\Paginator;
-use Blade;
+use Illuminate\Support\Facades\Blade;
+// use Blade;
 use URL;
 
 class AppServiceProvider extends ServiceProvider
@@ -41,10 +42,10 @@ class AppServiceProvider extends ServiceProvider
 
         /***
             Blade Directive , example using : @example or @example('expression') 
-        */
-        Blade::directive('count',function($expression){
-            return "<?php echo DB::table($expression)->count() ?>";
-        });   
-        //
+         ***/
+
+        Blade::directive('currency', function ($expression) {
+            return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
+        });
     }
 }

@@ -117,7 +117,7 @@
                 }, 0);
  
             // Update footer
-            $(api.column(8).footer()).html('Rp. ' + pageTotal + ' ( Rp. ' + total + ' total)');
+            $(api.column(8).footer()).html('Rp. ' + new Intl.NumberFormat().format(pageTotal) + ' (Rp. ' + Intl.NumberFormat().format(total) + ' total)');
         },
 	});
    });
