@@ -16,12 +16,13 @@ class ValidasiController extends Controller
         try {
             $data = [
                 "refdate" => Carbon::now()->format("Y-m-d"),
-                "userid" => "%"
+                "userid" => session::get('userid'),
+                "cabang" => Session::get('cabang')
             ];
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadAll", $data);
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadValid", $data);
             $data = $response->json();
             if ($data['code'] == 401) {
                 return redirect(route('login'));
