@@ -46,7 +46,7 @@
                     @endforeach
 
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-sm">Close Saldo</button>
+						<button type="submit" class="btn btn-primary btn-sm">Close PIN</button>
 					</div>
 
 				</form>
