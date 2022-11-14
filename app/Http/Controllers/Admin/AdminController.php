@@ -65,9 +65,22 @@ class AdminController extends Controller
           
             $pin = $response->json();
 
+            $valid = [
+                "refdate" => now()->toDateString(),
+                "userid" => Session::get('userid'),
+                "cabang" => Session::get('cabang')
+            ];
+            $headers = [
+                "Authorization" => "Bearer ".Session::get('token')
+            ];
+
+            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadValid", $valid);
+          
+            $valid = $response->json();
+
 
             if ($data['code'] == 200){
-               return view('admin.index', ['users' => $data, 'news' => $news, 'trans' => $trans, 'pins' => $pin]);
+               return view('admin.index', ['users' => $data, 'news' => $news, 'trans' => $trans, 'pins' => $pin, 'valids' => $valid]);
             } else {
                return redirect(route('home'));
             }

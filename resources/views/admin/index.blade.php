@@ -63,7 +63,11 @@
     <!-- small box -->
     <div class="small-box bg-warning">
       <div class="inner">
-        <h3>100</h3>
+        @php $jumtrans = 0 @endphp
+        @if($valids['code'] == '200')
+          @php $jumtrans = count($valids['data']) @endphp
+        @endif
+        <h3>{{ $jumtrans }}</h3>
         <p>Validasi</p>
       </div>
       <div class="icon">
