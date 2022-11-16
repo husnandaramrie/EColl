@@ -160,7 +160,8 @@ class PinTransaksiController extends Controller
             "refdate" => $req['maxtime'],
             "refno" => $req['refno'],
             "userlimit" => $req['userlimit'],
-            "maxtime" => $req['maxtime']
+            "maxtime" => $req['maxtime'],
+            "cabang" => Session::get('cabang')
         ];
 
         try {
@@ -195,55 +196,8 @@ class PinTransaksiController extends Controller
             ];
             $response = Http::withHeaders($headers)->post('http://117.53.45.236:8002/api/Trans/ReadByPin', $body);
             $data = $response->json();
-            if ($data['code'] == 200) {
-                foreach ($data['data'] as $row) {
-                    try {
-                        $bodycbs = [
-                            "transid" => $row['refno'],
-                            "norek" => $row['norek'],
-                            "nominal" => $row['amount'],
-                            "operator" => $row['userid'],
-                            "tanggal" => $row['refdate']
-                        ];
-                        $headerscbs = [
-                            // "Authorization" => "Bearer " . Session::get('token')
-                            "Content-Type" => "application/json"
-                        ];
-                        $responsecbs = Http::withHeaders($headerscbs)->post('http://117.53.45.236:8000/api/ecoll/setor_tabungan', $bodycbs);
-                        $datacbs = $responsecbs->json();
-
-                        $bodycbs2 = [
-                            "jenis" => "1",
-                            "nominal" => $row['amount']
-                        ];
-                        $headerscbs2 = [
-                            // "Authorization" => "Bearer " . Session::get('token')
-                            "Content-Type" => "application/json"
-                        ];
-                        $responsecbs2 = Http::withHeaders($headerscbs2)->post('http://117.53.45.236:8000/api/ecoll/pindah_buku', $bodycbs2);
-                        $datacbs2 = $responsecbs2->json();
-                       
-                    } catch (\Throwable $th) {
-                        throw $th;
-                    }
-                    if ($datacbs['code'] == "00") {
-                        try {
-                            $bodyrow = [
-                                "refno" => $row['refno'],
-                                "userpin" => $row['pin']
-                            ];
-                            $headersrow = [
-                                "Authorization" => "Bearer " . Session::get('token')
-                            ];
-                            $responserow = Http::withHeaders($headersrow)->post('http://117.53.45.236:8002/api/Trans/Edit', $bodyrow);
-                            $datarow = $responserow->json();
-                        } catch (\Throwable $th) {
-                            throw $th;
-                        }
-                    }
-                }
-                if ($datarow['code'] == 200) {
-                    // return redirect()->route('admin.pintransaksi')->with("success", "Pin Berhasil Di Close");
+            if ($data['code'] == 200 or $data['code'] == 404) {
+                if ($data['code'] == 404) {
                     try {
                         $bodypin = [
                             "refno" => (string)$reg['refno']
@@ -260,6 +214,72 @@ class PinTransaksiController extends Controller
                         }
                     } catch (\Throwable $th) {
                         throw $th;
+                    }
+                } else {
+                    foreach ($data['data'] as $row) {
+                        try {
+                            $bodycbs = [
+                                "transid" => $row['refno'],
+                                "norek" => $row['norek'],
+                                "nominal" => $row['amount'],
+                                "operator" => $row['userid'],
+                                "tanggal" => $row['refdate']
+                            ];
+                            $headerscbs = [
+                                // "Authorization" => "Bearer " . Session::get('token')
+                                "Content-Type" => "application/json"
+                            ];
+                            $responsecbs = Http::withHeaders($headerscbs)->post('http://117.53.45.236:8000/api/ecoll/setor_tabungan', $bodycbs);
+                            $datacbs = $responsecbs->json();
+
+                            $bodycbs2 = [
+                                "jenis" => "1",
+                                "nominal" => $row['amount']
+                            ];
+                            $headerscbs2 = [
+                                // "Authorization" => "Bearer " . Session::get('token')
+                                "Content-Type" => "application/json"
+                            ];
+                            $responsecbs2 = Http::withHeaders($headerscbs2)->post('http://117.53.45.236:8000/api/ecoll/pindah_buku', $bodycbs2);
+                            $datacbs2 = $responsecbs2->json();
+                        } catch (\Throwable $th) {
+                            throw $th;
+                        }
+                        if ($datacbs['code'] == "00") {
+                            try {
+                                $bodyrow = [
+                                    "refno" => $row['refno'],
+                                    "userpin" => $row['pin']
+                                ];
+                                $headersrow = [
+                                    "Authorization" => "Bearer " . Session::get('token')
+                                ];
+                                $responserow = Http::withHeaders($headersrow)->post('http://117.53.45.236:8002/api/Trans/Edit', $bodyrow);
+                                $datarow = $responserow->json();
+                            } catch (\Throwable $th) {
+                                throw $th;
+                            }
+                        }
+                    }
+                    if ($datarow['code'] == 200) {
+                        // return redirect()->route('admin.pintransaksi')->with("success", "Pin Berhasil Di Close");
+                        try {
+                            $bodypin = [
+                                "refno" => (string)$reg['refno']
+                            ];
+                            $headerspin = [
+                                "Authorization" => "Bearer " . Session::get('token')
+                            ];
+                            $responsepin = Http::withHeaders($headerspin)->post("http://117.53.45.236:8002/api/Pin/Close", $bodypin);
+                            $datapin = $responsepin->json();
+                            if ($datapin['code'] == 200) {
+                                return redirect()->route('admin.pintransaksi')->with('success', 'Sukses Close PIN');
+                            } else {
+                                return back()->with('error', "Gagal Close PIN");
+                            }
+                        } catch (\Throwable $th) {
+                            throw $th;
+                        }
                     }
                 }
             } else {
