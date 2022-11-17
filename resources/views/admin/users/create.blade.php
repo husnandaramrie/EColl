@@ -59,22 +59,22 @@
 
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text" name="username" class="form-control">
+                        <input type="text" name="username" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email" name="email" class="form-control">
+                        <input type="email" name="email" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="text" name="password" class="form-control">
+                        <input type="text" name="password" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Nama User</label>
-                        <input type="text" name="nama_user" class="form-control">
+                        <input type="text" name="nama_user" class="form-control" required>
                     </div>
 
                     <div class="form-group">
@@ -120,7 +120,7 @@
 
                     <div class="form-group">
                         <label for="">Limit Otorisasi</label>
-                        <input type="number" name="limit_otorisasi" id="" class="form-control">
+                        <input type="number" name="limit_otorisasi" id="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
@@ -133,7 +133,8 @@
 
                     <div class="form-group">
                         <label for="">Relasi MBS Online</label>
-                        <select name="relasi_mbs_online" id="" class="form-control">
+                        <select name="relasi_mbs_online" id="" class="form-control" required>
+                            <option value="">Pilih User</option>
                             @foreach ($relations as $item)
                                 <option value="{{$item['userid']}}">{{$item['username']}}</option>
                             @endforeach

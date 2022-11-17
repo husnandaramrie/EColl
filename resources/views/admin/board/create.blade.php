@@ -37,12 +37,12 @@
 
                     <div class="form-group">
                         <label for="">Message</label>
-                        <input type="textarea" name="content" class="form-control">
+                        <input type="textarea" name="content" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Expired</label>
-                        <input type="date" name="expdate" class="form-control">
+                        <input type="date" name="expdate" class="form-control" required>
                     </div>                    
 
                     <div class="form-group">

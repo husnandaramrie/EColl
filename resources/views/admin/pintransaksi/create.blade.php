@@ -28,7 +28,8 @@
 
 					<div class="form-group">
 						<label for="name">User</label>
-						<select name="userid" id="" class="form-control">
+						<select name="userid" id="" class="form-control" required>
+                            <option value="">Pilih User</option>
                             @foreach ($userid as $item)
                                 <option value="{{$item['userid']}}">{{$item['userid']}}</option>
                             @endforeach
@@ -57,17 +58,17 @@
 
                     <div class="form-group">
                         <label for="name">Limit Transaksi</label>
-                        <input type="text" name="userlimit" class="form-control">
+                        <input type="text" name="userlimit" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Maximal Waktu Transaksi</label>
-                        <input type="datetime-local" name="maxtime" class="form-control" date(format,timestamp)>
+                        <input type="datetime-local" name="maxtime" class="form-control" date(format,timestamp) required>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Saldo Awal / Buka Kas</label>
-                        <input type="number" name="saldoawal" class="form-control">
+                        <input type="number" name="saldoawal" class="form-control" required>
                     </div>
 
                     {{-- <div class="form-group">

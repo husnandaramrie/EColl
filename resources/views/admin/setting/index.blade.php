@@ -48,33 +48,33 @@
 
                     <div class="form-group">
                         <label for="">Iklan Promo</label>
-                        <input type="text" name="promo" value="{{$data['promo']}}" class="form-control">
+                        <input type="text" name="promo" value="{{$data['promo']}}" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Call Center</label>
-                        <input type="text" name="callcenter" value="{{$data['callcenter']}}" class="form-control">
+                        <input type="text" name="callcenter" value="{{$data['callcenter']}}" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Limit Nominal Penarikan</label>
-                        <input type="number" name="limittarik" value="{{$data['limittarik']}}" placeholderid="" class="form-control">
+                        <input type="number" name="limittarik" value="{{$data['limittarik']}}" placeholderid="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Limit Nominal Setoran</label>
-                        <input type="number" name="limitsetor" value="{{$data['limitsetor']}}" placeholderid="" class="form-control">
+                        <input type="number" name="limitsetor" value="{{$data['limitsetor']}}" placeholderid="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">SMS Center</label>
-                        <input type="text" name="smscenter" value="{{$data['smscenter']}}" placeholderid="" class="form-control">
+                        <input type="text" name="smscenter" value="{{$data['smscenter']}}" placeholderid="" class="form-control" required>
                     </div>
 
 
                     <div class="form-group">
                         <label for="">Pin Penarikan Aktif</label>
-                        <select name="pintarik" id="" class="form-control">
+                        <select name="pintarik" id="" class="form-control" required>
                             <option value="{{$data['pintarik'] ? '1' : '0'}}">{{$data['pintarik'] ? 'Ya' : 'Tidak'}}</option>
                             <option value="1">Ya</option>
                             <option value="0">Tidak</option>
