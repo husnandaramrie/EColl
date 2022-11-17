@@ -19,10 +19,10 @@
 				<form method="POST" action="{{route('admin.board.updateViewBoard.store')}}">
 					@csrf
                     {{-- @dd($data); --}}
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="">ID</label>
                         <input type="textarea" name="refid" value="{{$data[0]['refid']}}" class="form-control" readonly>
-                    </div> --}}
+                    </div>
                     <div class="form-group">
                         <label for="">Tipe</label>
                         <select name="reftype" id="" class="form-control">

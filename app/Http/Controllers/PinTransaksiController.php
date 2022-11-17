@@ -196,6 +196,7 @@ class PinTransaksiController extends Controller
             ];
             $response = Http::withHeaders($headers)->post('http://117.53.45.236:8002/api/Trans/ReadByPin', $body);
             $data = $response->json();
+
             if ($data['code'] == 200 or $data['code'] == 404) {
                 if ($data['code'] == 404) {
                     try {
@@ -207,6 +208,7 @@ class PinTransaksiController extends Controller
                         ];
                         $responsepin = Http::withHeaders($headerspin)->post("http://117.53.45.236:8002/api/Pin/Close", $bodypin);
                         $datapin = $responsepin->json();
+                        // @dd($data['code'],(string)$reg['refno']);
                         if ($datapin['code'] == 200) {
                             return redirect()->route('admin.pintransaksi')->with('success', 'Sukses Close PIN');
                         } else {
@@ -216,6 +218,7 @@ class PinTransaksiController extends Controller
                         throw $th;
                     }
                 } else {
+
                     foreach ($data['data'] as $row) {
                         try {
                             $bodycbs = [
@@ -234,7 +237,7 @@ class PinTransaksiController extends Controller
 
                             $bodycbs2 = [
                                 "jenis" => "1",
-                                "nominal" => $row['amount']
+                                "nominal" => (int) $row['amount']
                             ];
                             $headerscbs2 = [
                                 // "Authorization" => "Bearer " . Session::get('token')
@@ -245,6 +248,8 @@ class PinTransaksiController extends Controller
                         } catch (\Throwable $th) {
                             throw $th;
                         }
+                        // @dd((integer) $row['amount']);
+                        // @dd($datacbs);
                         if ($datacbs['code'] == "00") {
                             try {
                                 $bodyrow = [
@@ -257,28 +262,32 @@ class PinTransaksiController extends Controller
                                 $responserow = Http::withHeaders($headersrow)->post('http://117.53.45.236:8002/api/Trans/Edit', $bodyrow);
                                 $datarow = $responserow->json();
                             } catch (\Throwable $th) {
+                                @dd((int) $row['amount']);
                                 throw $th;
                             }
-                        }
-                    }
-                    if ($datarow['code'] == 200) {
-                        // return redirect()->route('admin.pintransaksi')->with("success", "Pin Berhasil Di Close");
-                        try {
-                            $bodypin = [
-                                "refno" => (string)$reg['refno']
-                            ];
-                            $headerspin = [
-                                "Authorization" => "Bearer " . Session::get('token')
-                            ];
-                            $responsepin = Http::withHeaders($headerspin)->post("http://117.53.45.236:8002/api/Pin/Close", $bodypin);
-                            $datapin = $responsepin->json();
-                            if ($datapin['code'] == 200) {
-                                return redirect()->route('admin.pintransaksi')->with('success', 'Sukses Close PIN');
-                            } else {
-                                return back()->with('error', "Gagal Close PIN");
+                            // @dd($datarow);
+                            if ($datarow['code'] == 200) {
+                                // return redirect()->route('admin.pintransaksi')->with("success", "Pin Berhasil Di Close");
+                                try {
+                                    $bodypin = [
+                                        "refno" => (string)$reg['refno']
+                                    ];
+                                    $headerspin = [
+                                        "Authorization" => "Bearer " . Session::get('token')
+                                    ];
+                                    $responsepin = Http::withHeaders($headerspin)->post("http://117.53.45.236:8002/api/Pin/Close", $bodypin);
+                                    $datapin = $responsepin->json();
+                                    if ($datapin['code'] == 200) {
+                                        return redirect()->route('admin.pintransaksi')->with('success', 'Sukses Close PIN');
+                                    } else {
+                                        return back()->with('error', "Gagal Close PIN");
+                                    }
+                                } catch (\Throwable $th) {
+                                    throw $th;
+                                }
                             }
-                        } catch (\Throwable $th) {
-                            throw $th;
+                        } else {
+                            return back()->with('error', "Transaksi Gagal");
                         }
                     }
                 }

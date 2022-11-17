@@ -61,7 +61,7 @@ class SettingController extends Controller
         // @dd($request);
         $req = $request->all();
         $body = [
-            "id" => $req['id'],
+            "id" => 0,
             "Promo" => $req['promo'],
             "Callcenter" => $req['callcenter'],
             "Limitsetor" => $req['limitsetor'],

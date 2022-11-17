@@ -31,7 +31,8 @@
 				<thead>
 				<tr>
                   <th>No</th>
-				  <th>User Nama</th>
+				  <th>Nama</th>
+				  <th>User ID</th>
 				  <th>Kode Kolektor</th>
 				  <th>View Laporan</th>
 				  <th>Melakukan Transaksi</th>
@@ -49,6 +50,7 @@
 				<tr>
 				  <td>{{ $loop->index + 1 }}</td>
 				  <td>{{ $user['name'] }}</td>
+				  <td>{{ $user['userid'] }}</td>
 				  <td>{{ $user['kodekolector'] }}</td>
 				  <td>{{ $user['viewreport'] == 1 ? "Ya" : "Tidak" }}</td>
 				  <td>{{ $user['transsetoran'] == 1 ? "Ya" : "Tidak" }}</td>
