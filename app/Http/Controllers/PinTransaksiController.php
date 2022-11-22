@@ -218,9 +218,11 @@ class PinTransaksiController extends Controller
                         throw $th;
                     }
                 } else {
-
+                    $jumdata = count($data['data']);
+                    $index = 0;            
                     foreach ($data['data'] as $row) {
                         try {
+                            $index++;
                             $bodycbs = [
                                 "transid" => $row['refno'],
                                 "norek" => $row['norek'],
@@ -235,16 +237,16 @@ class PinTransaksiController extends Controller
                             $responsecbs = Http::withHeaders($headerscbs)->post('http://117.53.45.236:8000/api/ecoll/setor_tabungan', $bodycbs);
                             $datacbs = $responsecbs->json();
 
-                            $bodycbs2 = [
-                                "jenis" => "1",
-                                "nominal" => (int) $row['amount']
-                            ];
-                            $headerscbs2 = [
-                                // "Authorization" => "Bearer " . Session::get('token')
-                                "Content-Type" => "application/json"
-                            ];
-                            $responsecbs2 = Http::withHeaders($headerscbs2)->post('http://117.53.45.236:8000/api/ecoll/pindah_buku', $bodycbs2);
-                            $datacbs2 = $responsecbs2->json();
+                            // $bodycbs2 = [
+                            //     "jenis" => "1",
+                            //     "nominal" => (int) $row['amount']
+                            // ];
+                            // $headerscbs2 = [
+                            //     // "Authorization" => "Bearer " . Session::get('token')
+                            //     "Content-Type" => "application/json"
+                            // ];
+                            // $responsecbs2 = Http::withHeaders($headerscbs2)->post('http://117.53.45.236:8000/api/ecoll/pindah_buku', $bodycbs2);
+                            // $datacbs2 = $responsecbs2->json();
                         } catch (\Throwable $th) {
                             throw $th;
                         }
@@ -262,11 +264,11 @@ class PinTransaksiController extends Controller
                                 $responserow = Http::withHeaders($headersrow)->post('http://117.53.45.236:8002/api/Trans/Edit', $bodyrow);
                                 $datarow = $responserow->json();
                             } catch (\Throwable $th) {
-                                @dd((int) $row['amount']);
+                                // @dd((int) $row['amount']);
                                 throw $th;
                             }
-                            // @dd($datarow);
-                            if ($datarow['code'] == 200) {
+                            // @dd($index, $jumdata);
+                            if ($datarow['code'] == 200 && $index >= $jumdata) {
                                 // return redirect()->route('admin.pintransaksi')->with("success", "Pin Berhasil Di Close");
                                 try {
                                     $bodypin = [
