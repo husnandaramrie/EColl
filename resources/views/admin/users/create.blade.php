@@ -41,7 +41,8 @@
 
 					<div class="form-group">
 						<label for="name">Client</label>
-						<select name="client" id="client" class="form-control">
+						<select name="client" id="client" class="form-control" required>
+                            <option value="">== Pilih Client ==</option>
                             @foreach ($clients as $item)
                                 <option data-id= "{{$item['clientid']}}" value="{{$item['clientid']}}">{{$item['clientname']}}</option>
                             @endforeach
@@ -50,7 +51,8 @@
 
                     <div class="form-group">
 						<label for="name">Cabang</label>
-						<select name="cabang" id="cabang" class="form-control">
+						<select name="cabang" id="cabang" class="form-control" required>
+                            <option value="">== Pilih Cabang ==</option>
                             @foreach ($branches as $item)
                                 <option value="{{$item['clientid']}}">{{$item['clientname']}}</option>
                             @endforeach                          

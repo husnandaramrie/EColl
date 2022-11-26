@@ -14,7 +14,8 @@ class NewLoginController extends Controller
             'userName' => $input['username'],
             'password' => $input['password']
         ];
-        $res = Http::post("http://117.53.45.236:8002/api/Login/Authorize", $data);
+        // $res = Http::post("http://117.53.45.236:8002/api/Login/Authorize", $data);
+        $res = Http::post(env('APP_URL') . "/api/Login/Authorize", $data);
         //$res = Http::post("http://localhost:5400/api/Login/Authorize", $data);
         $response = $res->json();
         if ($response['code'] == 200) {
@@ -27,7 +28,8 @@ class NewLoginController extends Controller
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
             ];
-            $reslog = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $datalog);
+            // $reslog = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $datalog);
+            $reslog = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Read", $datalog);
             //$reslog = Http::withHeaders($headers)->post("http://localhost:5400/api/User/Read", $datalog);
             $responselog = $reslog->json();
             //@dd($responselog);

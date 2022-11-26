@@ -22,7 +22,7 @@ class BoardController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/ReadAll", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/News/ReadAll", $data);
             // $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/Read", $data);
             $data = $response->json();
             if ($data['code'] == 401) {
@@ -56,7 +56,7 @@ class BoardController extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer " . Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/News/Read', $data);
+        ])->post(env('APP_URL') . '/api/News/Read', $data);
         $data = $response->json();
         if ($data['code'] == 200) {
             return $data['data'];
@@ -94,7 +94,7 @@ class BoardController extends Controller
             ];
             // @dd($body);
             // request
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/Add", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/News/Add", $body);
 
             // response
             $data = $response->json();
@@ -121,7 +121,7 @@ class BoardController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/ReadAll", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/News/ReadAll", $body);
             $data = $response->json();
             if ($data['code'] == 200) {
                 //@dd($data);
@@ -155,7 +155,7 @@ class BoardController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/Edit", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/News/Edit", $body);
             $data = $response->json();
             if ($data['code'] == 200) {
                 return redirect()->route('admin.board')->with("success", "Data Berhasil Di Update");
@@ -177,7 +177,7 @@ class BoardController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/Del", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/News/Del", $body);
             $data = $response->json();
             if ($data['code'] == 200) {
                 return back()->with('success', 'Data berhasil dihapus');

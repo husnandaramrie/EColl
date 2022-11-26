@@ -21,7 +21,7 @@ class UserControllerNew extends Controller
             ];
 
             
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Read", $data);
           
             $data = $response->json();
 
@@ -79,7 +79,7 @@ class UserControllerNew extends Controller
         ];
 
         // request
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Add", $body);
+        $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Add", $body);
 
         // response
         $data = $response->json();
@@ -101,7 +101,7 @@ class UserControllerNew extends Controller
         $headers = [
             "Authorization" => "Bearer ".Session::get('token')
         ];
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+        $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Read", $data);
         $data = $response->json()['data'];
 
         return view('admin.users.edit', [
@@ -151,7 +151,7 @@ class UserControllerNew extends Controller
         ];
         // request
        // return redirect()->route('admin.users')->with("success", $body['cabang']);
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Edit", $body);
+        $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Edit", $body);
 
         // response
         $data = $response->json();
@@ -175,7 +175,7 @@ class UserControllerNew extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
             // request
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Del", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Del", $body);
             $data = $response->json();
             // return $data;
             if ($data['code'] == 200) {
@@ -195,7 +195,7 @@ class UserControllerNew extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Level', $data);
+        ])->post(env('APP_URL') . '/api/User/Level', $data);
         return $response->json()['data'];
     }
 
@@ -206,7 +206,7 @@ class UserControllerNew extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Cluster', $data);
+        ])->post(env('APP_URL') . '/api/User/Cluster', $data);
         return $response->json()['data'];
     }
 
@@ -217,7 +217,7 @@ class UserControllerNew extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Client', $data);
+        ])->post(env('APP_URL') . '/api/User/Client', $data);
         return $response->json()['data'];
     }
 
@@ -228,7 +228,7 @@ class UserControllerNew extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Divisi', $data);
+        ])->post(env('APP_URL') . '/api/User/Divisi', $data);
         return $response->json()['data'];
     }
 
@@ -239,7 +239,7 @@ class UserControllerNew extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/UserCBS', $data);
+        ])->post(env('APP_URL') . '/api/User/UserCBS', $data);
         return $response->json()['data'];
     }
     
@@ -252,7 +252,7 @@ class UserControllerNew extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Divisi', $data);
+        ])->post(env('APP_URL') . '/api/User/Divisi', $data);
         return $response;
         // return response()->json($data);
     }

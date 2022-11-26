@@ -25,7 +25,7 @@ class RekapController extends Controller
         ];
 
 
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+        $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Read", $data);
 
         $data = $response->json();
 
@@ -58,7 +58,7 @@ class RekapController extends Controller
 
             //@dd($data);
 
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/Rekap", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Trans/Rekap", $body);
             $data = $response->json();
             //@dd($data);
             if ($data['code'] == 200) {
@@ -79,7 +79,7 @@ class RekapController extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer " . Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Divisi', $data);
+        ])->post(env('APP_URL') . '/api/User/Divisi', $data);
         return $response->json()['data'];
     }
 
@@ -91,7 +91,7 @@ class RekapController extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer " . Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/User/Client', $data);
+        ])->post(env('APP_URL') . '/api/User/Client', $data);
         return $response->json()['data'];
     }
 }

@@ -20,7 +20,7 @@ class AdminController extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
             
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Read", $data);
           
             $data = $response->json();
 
@@ -33,7 +33,7 @@ class AdminController extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
             
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/News/ReadAll", $news);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/News/ReadAll", $news);
           
             $news = $response->json();
 
@@ -48,7 +48,7 @@ class AdminController extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
 
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/v2/ReadAll", $trans);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Trans/v2/ReadAll", $trans);
           
             $trans = $response->json();
            
@@ -60,7 +60,7 @@ class AdminController extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
 
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Pin/ReadAll", $pin);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Pin/ReadAll", $pin);
             //@dd($pin['cabang']);
           
             $pin = $response->json();
@@ -74,7 +74,7 @@ class AdminController extends Controller
                 "Authorization" => "Bearer ".Session::get('token')
             ];
 
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/ReadValid", $valid);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Trans/ReadValid", $valid);
           
             $valid = $response->json();
 

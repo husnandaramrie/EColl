@@ -23,7 +23,7 @@ class HomeController extends Controller
         ];
 
         
-        $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/Read", $data);
+        $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/Read", $data);
       
         $data = $response->json();
     

@@ -19,7 +19,7 @@ class SettingController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Setting/Read", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Setting/Read", $data);
             $data = $response->json();
             if ($data['code'] == 401) {
                 return redirect(route('login'));
@@ -50,7 +50,7 @@ class SettingController extends Controller
         ];
         $response = Http::withHeaders([
             'Authorization' => "Bearer " . Session::get('token')
-        ])->post('http://117.53.45.236:8002/api/Setting/Read', $data);
+        ])->post(env('APP_URL') . '/api/Setting/Read', $data);
         return $response->json()['data'];
     }
     ////////////////////////////////////////////////// Add View Setting //////////////////////////////////////////////////
@@ -78,7 +78,7 @@ class SettingController extends Controller
             ];
             // @dd($body);
             // request
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Setting/Set", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Setting/Set", $body);
 
             // response
             $data = $response->json();

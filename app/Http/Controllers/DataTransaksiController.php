@@ -23,7 +23,7 @@ class DataTransaksiController extends Controller
                 "Authorization" => "Bearer " . Session::get('token')
             ];
             // @dd($data);
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/v2/ReadAll", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Trans/v2/ReadAll", $data);
             $data = $response->json();
             if ($data['code'] == 401) {
                 return redirect(route('login'));
@@ -50,7 +50,7 @@ class DataTransaksiController extends Controller
                 "Authorization" => "Bearer " . Session::get('token')
             ];
             // request
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/Trans/Del", $body);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/Trans/Del", $body);
             $data = $response->json();
             // return $data;
             if ($data['code'] == 200) {

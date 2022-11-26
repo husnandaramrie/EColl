@@ -18,7 +18,7 @@ class QRNasabahKreController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/ReadBC", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/ReadBC", $data);
             //$response = Http::withHeaders($headers)->post("http://localhost:5400/api/User/ReadBC", $data);
 
             $data = $response->json();
@@ -56,7 +56,7 @@ class QRNasabahKreController extends Controller
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
             ];
-            $response = Http::withHeaders($headers)->post("http://117.53.45.236:8002/api/User/ReadBC", $data);
+            $response = Http::withHeaders($headers)->post(env('APP_URL') . "/api/User/ReadBC", $data);
             //$response = Http::withHeaders($headers)->post("http://localhost:5400/api/User/ReadBC", $data);
 
             $data = $response->json();

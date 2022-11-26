@@ -24,7 +24,8 @@ class AdminMiddleware
         ];
         $response = Http::withHeaders([
             "Authorization" => "Bearer ".$session
-        ])->post("http://117.53.45.236:8002/api/User/Read", $data);
+        // ])->post("http://117.53.45.236:8002/api/User/Read", $data);
+        ])->post( env('APP_URL') . "/api/User/Read", $data);
         $result = $response->body() != null || strlen($response->body()) > 0 ? true : false;
 
         if ($session != null && $result == true) {

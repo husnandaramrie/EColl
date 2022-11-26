@@ -47,13 +47,13 @@ $(document).ready(function(){
 
                     <div class="form-group">
                         <label for="">Limit Transaksi</label>
-                        <input type="text" name="userlimit" value="{{number_format($data['userlimit'],0)}}" class="form-control">
+                        <input type="text" name="userlimit" value="{{number_format($data['userlimit'],0)}}" class="form-control" required>
                     </div>
 
 					
                     <div class="form-group">
 						<label for="">Maximal Waktu Transaksi</label>
-                        <input type="datetime-local" name="maxtime" value="{{$data['maxtime']}}" class="form-control">
+                        <input type="datetime-local" name="maxtime" value="{{$data['maxtime']}}" class="form-control" required>
                     </div>
 					
 {{-- 					<div class="form-group">
