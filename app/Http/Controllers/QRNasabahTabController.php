@@ -10,6 +10,7 @@ class QRNasabahTabController extends Controller
 {
     public function indexTabungan()
     {
+        // ini_set('max_execution_time', 180); //3 minutes
         try {
             $data = [
                 "ttype" => "T",

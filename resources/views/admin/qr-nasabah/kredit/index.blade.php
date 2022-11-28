@@ -45,14 +45,16 @@
 					<tr></tr>
 				</thead>
 				<tbody class="text-center">
+				@if($barcodes['code'] == 200)
 				@foreach($barcodes['data'] as $bc)
 				@php 
 					$col = 1;
 					$count = $loop->count; 
 				@endphp
 				@endforeach
-				
+				@endif
 				<tr>
+				@if($barcodes['code'] == 200)
 				@for($i = 0; $i < $count; $i++)
 					@if($col > 3)
 						<tr>
@@ -76,6 +78,7 @@
 					@endif	
 					@php $col++ @endphp				
  				@endfor
+				@endif
 				</tr>
 				</tbody>
 				</table>
