@@ -35,6 +35,7 @@ class NewLoginController extends Controller
             //@dd($responselog);
             if ($responselog['code'] == 200){
                 Session::put('AddUser', $responselog['data'][0]['adduser']);
+                Session::put('username',$responselog['data'][0]['name']);
                 if ($responselog['data'][0]['level'] == "CLT"){
                     $value = "%";
                     Session::put('cabang', $value);

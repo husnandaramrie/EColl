@@ -14,10 +14,12 @@ class PinTransaksiController extends Controller
     ////////////////////////////////////////////////// INDEX //////////////////////////////////////////////////
     public function indexPin()
     {
+        // @dd(now());
         try {
             $data = [
                 "refdate" => now(),
-                "cabang" => Session::get('cabang')
+                "cabang" => Session::get('cabang'),
+                "username" => Session::get('username')
             ];
             $headers = [
                 "Authorization" => "Bearer " . Session::get('token')
