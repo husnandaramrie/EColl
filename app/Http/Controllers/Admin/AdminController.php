@@ -54,7 +54,8 @@ class AdminController extends Controller
            
             $pin = [
                 "refdate" => now()->toDateString(),
-                "cabang" => Session::get('cabang')
+                "cabang" => Session::get('cabang'),
+                "username" => Session::get('username')
             ];
             $headers = [
                 "Authorization" => "Bearer ".Session::get('token')
