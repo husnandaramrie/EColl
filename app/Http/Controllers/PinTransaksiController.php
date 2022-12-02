@@ -271,7 +271,7 @@ class PinTransaksiController extends Controller
                                 throw $th;
                             }
                             // @dd($index, $jumdata);
-                            if ($datarow['code'] == 200 && $index >= $jumdata) {
+                            if ($datacbs['code'] == "00" && $index >= $jumdata) {
                                 // return redirect()->route('admin.pintransaksi')->with("success", "Pin Berhasil Di Close");
                                 try {
                                     $bodypin = [
