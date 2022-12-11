@@ -61,22 +61,22 @@
 
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text" name="username" class="form-control" required>
+                        <input type="text" name="username" id="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email" name="email" class="form-control" required>
+                        <input type="email" name="email" id="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="text" name="password" class="form-control" required>
+                        <input type="text" name="password" id="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Nama User</label>
-                        <input type="text" name="nama_user" class="form-control" required>
+                        <input type="text" name="nama_user" id="" class="form-control" required>
                     </div>
 
                     <div class="form-group">
