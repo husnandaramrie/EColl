@@ -58,17 +58,17 @@
 
                     <div class="form-group">
                         <label for="name">Limit Transaksi</label>
-                        <input type="text" name="userlimit" class="form-control" required>
+                        <input type="text" name="userlimit" value="300" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Maximal Waktu Transaksi</label>
-                        <input type="datetime-local" name="maxtime" class="form-control" date(format,timestamp) required>
+                        <input type="datetime-local" name="maxtime" value="{{ date_time_set(Now(),17,00) }}" class="form-control" date(format,timestamp) required>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Saldo Awal / Buka Kas</label>
-                        <input type="number" name="saldoawal" class="form-control" required>
+                        <input type="number" name="saldoawal" value="0" class="form-control" required>
                     </div>
 
                     {{-- <div class="form-group">
