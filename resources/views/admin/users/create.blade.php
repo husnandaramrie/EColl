@@ -61,7 +61,7 @@
 
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text" name="username" id="" class="form-control" required>
+                        <input type="text" name="username" id="userid" class="form-control" required>
                     </div>
 
                     <div class="form-group">
@@ -187,6 +187,16 @@
  @stop
  @push('js')
  <script>
+    $("#userid").on({
+       keydown: function(e) {
+         if (e.which == 32)
+           return false;
+     },
+     change: function() {
+       this.value = this.value.replace(/\s/g, "");
+     }
+   });
+
     $("#password").on({
        keydown: function(e) {
          if (e.which == 32)
