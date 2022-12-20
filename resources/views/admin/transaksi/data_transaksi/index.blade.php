@@ -25,8 +25,19 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				{{-- <a href="{{route('admin.data_transaksi.addView')}}" class="btn btn-primary btn-sm">Filter Transaksi</a>
-				<a href="{{route('admin.data_transaksi.addView')}}" class="btn btn-primary btn-sm">Cetak</a> --}}
+				<form method="GET" action="{{route('admin.print_transaksi')}}">
+					@csrf
+					<div class="form-row">
+						<div class="input-group col-3">
+							<span class="input-group-text" id="basic-addon3">Petugas</span>
+							<input type="text" name="userid" class="form-control" value="">
+						</div>
+						<div class="col-6">
+							{{-- <button type="submit" class="btn btn-primary btn-sm mb-1" name="tags" value="views">Cari Data</button> --}}
+							<button type="submit" class="btn btn-primary btn-sm mb-1" name="tags" value="prints">Print</button>
+						</div>
+					</div>
+				</form>			
 			</div>
 
 			<div class="card-body table-responsive">

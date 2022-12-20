@@ -104,8 +104,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
 
         ///////////////////////////////////////////////////// TRANSAKSI //////////////////////////////////////////////////////////
         // DATA TRANSAKSI
-        Route::resource('data_transaksi', 'DataTransaksiController');
+        // Route::resource('data_transaksi', 'DataTransaksiController');
         Route::get('/data_transaksi', [DataTransaksiController::class, 'indexDataTransaksi'])->name('data_transaksi');
+        Route::get('/data_transaksi/print', [DataTransaksiController::class, 'printTransaksi'])->name('print_transaksi');
         //Route::post('/data_transaksi/addView', [DataTransaksiController::class, 'addview'])->name('data_transaksi.addView');
         Route::get('/data_transaksi/destroyDataTrans/{id}', [DataTransaksiController::class, 'destroyDataTrans'])->name('data_transaksi.destroyDataTrans');
 
