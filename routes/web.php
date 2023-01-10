@@ -51,7 +51,7 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
 //Artikel
 //Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel');
-//Route::get('/artikel/search', [ArtikelController::class, 'search'])->name('artikel.search');
+Route::get('/artikel/search', [ArtikelController::class, 'search'])->name('artikel.search');
 
 //Route::get('/artikel/{artikel:slug}', [ArtikelController::class, 'show'])->name('artikel.show');
 
